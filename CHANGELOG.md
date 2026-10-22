@@ -5,6 +5,13 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y
 
 ## [Sin publicar]
 
+## [1.0.1] - 2026-10-22
+
+### Corregido
+
+- El control global ya no se cede a sí mismo cuando la ruta del proyecto pasa por un enlace simbólico
+  (por ejemplo, `/var` → `/private/var` en macOS).
+
 ## [1.0.0] - 2026-10-22
 
 ### Agregado

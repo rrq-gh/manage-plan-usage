@@ -83,6 +83,13 @@ test("prompt informa el uso y ordena avisar cuando no hay holgura", () => {
   assert.match(bad.additionalContext, /ATENCIÓN: holgura insuficiente/);
 });
 
+test("no se cede el control a sí mismo si el proyecto se abre por un enlace simbólico", () => {
+  const link = path.join(tmpDir(), "enlace");
+  fs.symlinkSync(project, link, "junction");
+  const r = run(guard, ["pretool"], { env: { CLAUDE_PROJECT_DIR: link }, input: { session_id: "x" } });
+  assert.equal(JSON.parse(r.stdout).hookSpecificOutput.permissionDecision, "ask");
+});
+
 test("la instalación global cede el control si el proyecto tiene la suya", () => {
   const globalHome = tmpDir();
   const globalGuard = path.join(globalHome, "hooks", "usage-guard.mjs");
