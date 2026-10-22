@@ -139,7 +139,10 @@ function deferToProject(input) {
   const dir = process.env.CLAUDE_PROJECT_DIR || input.cwd;
   if (!dir) return false;
   const local = path.resolve(dir, ".claude", "hooks", "usage-guard.mjs");
-  return local.toLowerCase() !== path.resolve(SELF).toLowerCase() && fs.existsSync(local);
+  if (!fs.existsSync(local)) return false;
+  // realpath: en macOS /var → /private/var; un enlace simbólico no debe hacer que el control se ceda a sí mismo.
+  const same = (a, b) => fs.realpathSync(a).toLowerCase() === fs.realpathSync(b).toLowerCase();
+  return !same(local, SELF);
 }
 
 const mode = process.argv[2];

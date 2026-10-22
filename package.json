@@ -1,6 +1,6 @@
 {
   "name": "manage-plan-usage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Control de holgura de uso del plan para Claude Code: pide confirmación antes de actuar cuando el uso de 5 h, 7 días o contexto supera un umbral.",
   "private": true,
   "type": "module",
